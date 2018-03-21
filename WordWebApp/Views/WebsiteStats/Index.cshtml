@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+@model WordWebApp.Models.WebsiteModel
+
+<h><b>Website Address:</b></h>
+@using (Html.BeginForm("WordsStats", "WebsiteStats", FormMethod.Post))
+{
+    @Html.TextBoxFor(model => model.Address)
+    @Html.ValidationMessageFor(model => model.Address)
+    <button type="submit">Search Words</button>
+}
+@Html.DisplayFor(model => model.ErrorMessage)
+
+
+@if (Model != null && Model.WordsStats != null)
+{
+    <h><b>Words Statistics:</b></h>
+
+    <table>
+        <thead>
+            <tr>
+                <td><b>Word</b></td>
+                <td><b>Number</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WordsStats)
+            {
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
